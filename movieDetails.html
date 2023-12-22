@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Movie Report</title>
+</head>
+
+<body>
+  <header>
+    <a href="index.html">Movie Database</a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="movie.html">Movies</a></li>
+        <li><a href="movie.html">Report</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="insertMovies"></section>
+  </main>
+
+  <footer>
+    <p>&copy;Company Name. All rights reserved.</p>
+  </footer>
+
+  <!--  Js Logic -->
+  <script>
+    //database
+    let allMovies = [{
+      id: '1',
+      number: 'Movie 1',
+      genre: 'Action',
+      details: 'This is an action packed movie.',
+      releasedate: '2023-01-15',
+      director: 'John Doe'
+    }, {
+      id: '2',
+      number: 'Movie 2',
+      genre: 'Drama',
+      details: 'A dramatic story unfolds in this movie.',
+      releasedate: '2023-02-20',
+      director: 'Jane Smith'
+    }, {
+      id: '3',
+      number: 'Movie 3',
+      genre: 'Comedy',
+      details: 'Get ready to laugh with this comedy.',
+      releasedate: '2023-05-20',
+      director: 'Jane Walk'
+    }]
+
+    //getting the url
+
+    function searchParams(id) {
+      let url = new URL(window.location.href)
+      return url.searchParams.get(id)
+    }
+
+    let genMovieId = searchParams('id')
+
+
+    //finding the id in the database 
+    let movie;
+    for (let i = 0; i < allMovies.length; i++) {
+      if (allMovies[i].id === genMovieId) {
+        movie = allMovies[i]
+      }
+    }
+
+    console.log(movie)
+
+    //displaying details in the view
+    let movieReportElement = document.getElementById('insertMovies')
+
+    if (movie) {
+      movieReportElement.innerHTML = `
+      <h2>Movie Details</h2>
+      <h2>${movie.number}</h2>
+      <p><strong>Genre:</strong>${movie.genre}</p>
+      <p><strong>Details:</strong>${movie.details}</p>
+      <p><strong>Release Date:</strong>${movie.releasedate}</p>
+      <p><strong>Director:</strong>${movie.director}</p>
+      `
+    } else {
+      movieReportElement.innerHTML = 'Movie not Found'
+    }
+
+  </script>
+</body>
+
+</html>
