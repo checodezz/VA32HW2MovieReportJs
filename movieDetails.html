@@ -3,27 +3,45 @@
 
 <head>
   <title>Movie Report</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>
   <header>
-    <a href="index.html">Movie Database</a>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="movie.html">Movies</a></li>
-        <li><a href="movie.html">Report</a></li>
-      </ul>
+    <nav class="text-secondary navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">Movie Database</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="movie.html">Movies</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./report.html">Report</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
   </header>
 
-  <main>
-    <section id="insertMovies"></section>
-  </main>
+  <main class="container my-2">
+    <h2>Movie Details</h2>
+    <section id="insertMovies">
 
-  <footer>
-    <p>&copy;Company Name. All rights reserved.</p>
-  </footer>
+    </section>
+  </main>
 
   <!--  Js Logic -->
   <script>
@@ -76,12 +94,14 @@
 
     if (movie) {
       movieReportElement.innerHTML = `
-      <h2>Movie Details</h2>
-      <h2>${movie.number}</h2>
+       <div class='card container ' >
+        <div class='card-body '>
+      <h5>${movie.number}</h5>
+      
       <p><strong>Genre:</strong>${movie.genre}</p>
       <p><strong>Details:</strong>${movie.details}</p>
-      <p><strong>Release Date:</strong>${movie.releasedate}</p>
-      <p><strong>Director:</strong>${movie.director}</p>
+      </div>
+      </div>
       `
     } else {
       movieReportElement.innerHTML = 'Movie not Found'
