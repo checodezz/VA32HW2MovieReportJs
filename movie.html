@@ -36,51 +36,145 @@
     </nav>
   </header>
 
-  <main>
-    <section>
-      <section class="container">
-        <h2>List of Movies</h2>
-        <div class="row">
-          <div class="col-md-6" >
-            <div class="card">
-              <div class="card-header">
-                <h2>Movie 1</h2>
-              </div>
-              <div class="card-body">
-                <p><strong>Genre</strong> : Action</p>
-                <a class='btn btn-primary' href="movieDetails.html?id=1">Details</a>
 
-              </div>
-            </div>
-          </div>
+  <section class="container">
+    <form>
+      <h2>Add a New Movie</h2>
 
-          <div class="col-md-6">
-            <div class="card">
-              <div class="card-header">
-                <h2>Movie 2</h2>
-              </div>
-              <div class="card-body">
-                <p><strong>Genre</strong> : Drama</p>
-                <a class='btn btn-primary' href="movieDetails.html?id=2">Details</a>
+      <div class="mb-3">
+        <label for="inputMovie">Title: </label><br>
+        <input class="form-control" type="text" id="inputMovie">
+      </div>
 
-              </div>
-            </div>
-          </div>
+      <div class="mb-3">
+        <label for="selectGenre">Genre: </label><br>
+        <select class="form-control" id="selectGenre">
+          <option value="action">Action</option>
+          <option value="drama">Drama</option>
+          <option value="comedy">Comedy</option>
+        </select>
+      </div>
 
-          <div class="col-md-6 my-3" >
-            <div class="card">
-              <div class="card-header">
-                <h2>Movie 3</h2>
-              </div>
-              <div class="card-body">
-                <p><strong>Genre</strong> : Comedy</p>
-                <a class='btn btn-primary' href="movieDetails.html?id=3">Details</a>
+      <div class="mb-3">
+        <label for="inputDate">Release Date: </label><br>
+        <input class="form-control" type="date" id="inputDate">
+      </div>
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-  </main>
+      <div class="mb-3">
+        <label for="inputDirector">Director:</label><br>
+        <input class="form-control" type="text" id="inputDirector">
+      </div>
+      <button class="btn btn-primary" type="button" id="addMovieBtn">Add Movie</button>
+    </form>
+  </section>
+
+  <section class="mt-4">
+    <div id="movieList" class="row">
+
+    </div>
+  </section>
+
+
+
+  <script>
+
+    const movies = [{
+      id: 1,
+      movieNumber: 'Movie 1',
+      genre: 'Action',
+      releaseDate: '2023-01-15',
+      director: 'John Doe'
+    },
+    {
+      id: 2,
+      movieNumber: 'Movie 2',
+      genre: 'Comedy',
+      releaseDate: '2023-02-20',
+      director: 'Jane Smith'
+    }];
+
+
+    const addMovieBtn = document.querySelector('#addMovieBtn')
+
+    function updateMovieReport(data) {
+      movieList.innerHTML = ''
+
+      for (let i = 0; i < data.length; i++) {
+
+        const col = document.createElement('div')
+        col.className = 'col-md-4'
+
+        const card = document.createElement('div')
+        card.className = 'card mb-3 container'
+
+        const cardHeader = document.createElement('div')
+        cardHeader.className = 'card-header'
+
+        const h2 = document.createElement('h2')
+        h2.textContent = data[i].movieNumber
+        cardHeader.appendChild(h2)
+
+        const cardBody = document.createElement('div')
+        cardBody.className = 'card-body'
+
+
+        const genre = document.createElement('p')
+        genre.className = 'card-text'
+        genre.innerHTML = `<strong>Genre: </strong> ${data[i].genre}`
+
+        const releaseDate = document.createElement('p')
+        releaseDate.className = 'card-text'
+        releaseDate.innerHTML = `<strong>Release Date: </strong> 
+        ${data[i].releaseDate}`
+
+        const director = document.createElement('p')
+        director.className = 'card-text'
+        director.innerHTML = `<strong>Director: </strong> ${data[i].director}`
+
+        const detailsLink = document.createElement('a')
+        detailsLink.href = `movieDetails.html?id=${data[i].id}`
+        detailsLink.className = 'btn btn-primary'
+        detailsLink.textContent = 'Details'
+
+        card.appendChild(cardHeader)
+        cardBody.appendChild(genre)
+        cardBody.appendChild(releaseDate)
+        cardBody.appendChild(director)
+        cardBody.appendChild(detailsLink)
+        card.appendChild(cardBody)
+
+        col.appendChild(card)
+        movieList.appendChild(col)
+      }
+
+    }
+
+    addMovieBtn.addEventListener('click', function () {
+      const inputMovie = document.querySelector('#inputMovie').value
+      const selectGenre = document.querySelector('#selectGenre').value
+      const inputDate = document.querySelector('#inputDate').value
+      const inputDirector = document.querySelector('#inputDirector').value
+
+      if (inputMovie && selectGenre && inputDate && inputDirector) {
+        let id = movies.length + 1;
+
+        const newAddedMovies = {
+          id: id,
+          movieNumber: inputMovie,
+          genre: selectGenre,
+          releaseDate: inputDate,
+          director: inputDirector
+        }
+        movies.push(newAddedMovies)
+        updateMovieReport(movies)
+        console.log(movies)
+      }
+    })
+
+
+
+    updateMovieReport(movies)
+  </script>
 </body>
+
 </html>
