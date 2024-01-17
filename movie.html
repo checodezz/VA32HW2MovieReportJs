@@ -39,8 +39,26 @@
 
   <section class="container">
     <form>
-      <h2>Add a New Movie</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="filterByGenre">Filter by Genre:</label>
+          <select id="filterByGenre" class="form-control">
+            <option value="all">All Genre</option>
+            <option value="Action">Action</option>
+            <option value="Comedy">Comedy</option>
+          </select>
+        </div>
 
+        <div class="col-md-6">
+          <label for="filterByDirector">Filter by Director:</label>
+          <select id="filterByDirector" class="form-control">
+            <option value="all">All Directors</option>
+            <option value="John Doe">John Doe</option>
+            <option value="Jane Smith">Jane Smith</option>
+          </select>
+        </div>
+      </div>
+      <h2>Add a New Movie</h2>
       <div class="mb-3">
         <label for="inputMovie">Title: </label><br>
         <input class="form-control" type="text" id="inputMovie">
@@ -68,8 +86,8 @@
     </form>
   </section>
 
-  <section class="mt-4">
-    <div id="movieList" class="row">
+  <section class="mt-4 container">
+    <div id="movieList" class="row ">
 
     </div>
   </section>
@@ -171,7 +189,47 @@
       }
     })
 
+    const filterByGenre = document.querySelector('#filterByGenre')
 
+
+    filterByGenre.addEventListener('change', applyGenreFilter)
+    function applyGenreFilter() {
+
+      let selectedGenre = filterByGenre.value
+      let filteredGenre = []
+
+      if (selectedGenre === 'all') {
+        filteredGenre = movies
+      } else {
+        for (let i = 0; i < movies.length; i++) {
+          if (movies[i].genre === selectedGenre) {
+            filteredGenre.push(movies[i])
+          }
+        }
+      }
+      updateMovieReport(filteredGenre)
+    }
+
+    const filterByDirector = document.querySelector('#filterByDirector')
+
+    filterByDirector.addEventListener('change', applyDirectorFilter)
+
+    function applyDirectorFilter() {
+
+      const selectedFilter = filterByDirector.value
+      let filteredDirector = []
+
+      if (selectedFilter === 'all') {
+        filterByDirector = movies
+      } else {
+        for (let i = 0; i < movies.length; i++) {
+          if (movies[i].director === selectedFilter) {
+            filteredDirector.push(movies[i])
+          }
+        }
+      }
+      updateMovieReport(filteredDirector)
+    }
 
     updateMovieReport(movies)
   </script>

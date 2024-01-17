@@ -36,40 +36,85 @@
     </nav>
   </header>
 
-  <main>
-    <section class="container">
-      <h2>Movie Report</h2>
-      <div class="row">
-        <div class="col-md-6 my-6">
-          <div class="card">
-            <div class="card-header">
-              <h2>Top-Rated Movie</h2>
-            </div>
-            <div class="card-body">
-              <p><strong>Title</strong> : Movie 2</p>
-              <p><strong>Rating</strong> : 9.2</p>
-              <p><strong>Director</strong> : Jane Smith</p>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-md-6 my-6">
-          <div class="card">
-            <div class="card-header">
-              <h2>Most Popular Genre</h2>
-            </div>
-            <div class="card-body">
-              <p><strong>Genre</strong> : Action</p>
-              <p><strong>Total Movies</strong> : 3</p>
-            </div>
-          </div>
-        </div>
+  <section class="container mt-3">
+    <h1>Movie Report</h1>
+    <div class='row ' id="showReport"></div>
+  </section>
 
 
-       
-      </div>
-    </section>
-  </main>
+  <script>
+
+    function generateMovueReport() {
+
+      const topRatedMovie = {
+        title: 'Movie 2',
+        rating: 9.2,
+        director: 'Jane Smith'
+      }
+
+      const popularGenre = {
+        genre: 'Action',
+        totalMovies: 3
+      }
+
+      function createCard(cardObj) {
+        const showReport = document.querySelector('#showReport')
+
+        const col = document.createElement('div')
+        col.className = 'col-md-6'
+
+        const card = document.createElement('div')
+        card.className = 'card mb-3'
+
+        const cardHeader = document.createElement('div')
+        cardHeader.className = 'card-header'
+
+        const h2 = document.createElement('h2')
+        h2.textContent = cardObj === topRatedMovie ? 'Top-Rated Movie' : 'Most Popular Genre'
+
+        cardHeader.appendChild(h2)
+
+        const cardBody = document.createElement('div')
+        cardBody.className = 'card-body'
+
+        const cardText = document.createElement('p')
+        cardText.className = 'card-text'
+        cardText.innerHTML = cardObj === topRatedMovie ? `<strong>title: 
+        </strong>${cardObj.title}` : `<strong>genre: </strong>${cardObj.genre}`
+
+        const cardText2 = document.createElement('p')
+        cardText2.className = 'card-text'
+        cardText2.innerHTML = cardObj === topRatedMovie ? `<strong>rating: 
+        </strong>${cardObj.rating}` : `<strong>totalMovies: 
+        </strong>${cardObj.totalMovies}`
+
+        const cardText3 = document.createElement('p')
+        if (cardObj === topRatedMovie) {
+          cardText3.className = 'card-text'
+          cardText3.innerHTML = `<strong>director: </strong>${cardObj.director}`
+        }
+
+        cardBody.appendChild(cardText)
+        cardBody.appendChild(cardText2)
+        cardBody.appendChild(cardText3)
+
+        card.appendChild(cardHeader)
+        card.appendChild(cardBody)
+
+        col.appendChild(card)
+        showReport.appendChild(col)
+
+      }
+
+      createCard(topRatedMovie)
+      createCard(popularGenre)
+
+
+    }
+
+    generateMovueReport()
+  </script>
 
 
 </body>

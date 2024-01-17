@@ -90,21 +90,55 @@
     console.log(movie)
 
     //displaying details in the view
+
+    /* 
+        if (movie) {
+          movieReportElement.innerHTML = `
+           <div class='card container ' >
+            <div class='card-body '>
+          <h5>${movie.number}</h5>
+          
+          <p><strong>Genre: </strong>${movie.genre}</p>
+          <p><strong>Details: </strong>${movie.details}</p>
+          </div>
+          </div>
+          `
+        } else {
+          movieReportElement.innerHTML = 'Movie not Found'
+        }
+     */
+
     let movieReportElement = document.getElementById('insertMovies')
 
     if (movie) {
-      movieReportElement.innerHTML = `
-       <div class='card container ' >
-        <div class='card-body '>
-      <h5>${movie.number}</h5>
-      
-      <p><strong>Genre: </strong>${movie.genre}</p>
-      <p><strong>Details: </strong>${movie.details}</p>
-      </div>
-      </div>
-      `
+      const col = document.createElement('div')
+      col.className = 'col-md-6'
+
+      const card = document.createElement('div')
+      card.className = 'card'
+
+      const cardBody = document.createElement('div')
+      cardBody.className = 'card-body'
+
+      const cardHeading = document.createElement('h5')
+      cardHeading.textContent = `${movie.number}`
+
+      cardBody.appendChild(cardHeading)
+
+      const genre = document.createElement('p')
+      genre.innerHTML = `<strong>Genre: </strong>${movie.genre}`
+
+      const details = document.createElement('p')
+      details.innerHTML = `<strong>Details: </strong>${movie.details}`
+
+      cardBody.appendChild(genre)
+      cardBody.appendChild(details)
+      card.appendChild(cardBody)
+      col.appendChild(card)
+      movieReportElement.appendChild(col)
+
     } else {
-      movieReportElement.innerHTML = 'Movie not Found'
+      movieReportElement.innerHTML = 'Movie not found..'
     }
 
   </script>
